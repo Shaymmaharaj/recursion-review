@@ -5,23 +5,22 @@
 
 var stringifyJSON = function(obj) {
   // your code goes here
-    var output = "["
+    var output = []
 
   if(Array.isArray(obj)){
       for(var i = 0; i < obj.length; i++){
-        if(typeof obj[i] === "object"){
-          return stringifyJSON(obj[i])
+        if(typeof obj[i] === 'object'){
+          output.push(stringifyJSON(obj[i]))
         } 
-      if(typeof obj[i] === "string"){
-          output += obj[i]
+      if(typeof obj[i] === 'string'){
+          output.push( obj[i])
       }
-      if(typeof obj[i] === "number"){
-        output += obj[i].toString()
+      if(typeof obj[i] === 'number'){
+        output.push( obj[i])
       }
     }
   }
-output += "]"
-return output
+return output.toString()
 
 
 

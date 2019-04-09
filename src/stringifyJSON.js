@@ -7,19 +7,40 @@ var stringifyJSON = function(obj) {
   // your code goes here
     var output = []
 
-  if(Array.isArray(obj)){
-      for(var i = 0; i < obj.length; i++){
-        if(typeof obj[i] === 'object'){
-          output.push(stringifyJSON(obj[i]))
-        } 
-      if(typeof obj[i] === 'string'){
-          output.push( obj[i])
-      }
-      if(typeof obj[i] === 'number'){
-        output.push( obj[i])
-      }
+    if(obj === null){
+      return "null"
     }
+
+  if(typeof obj === "string"){
+    return '"' + obj + '"'
   }
+  if(typeof obj === "number"){
+    return obj.toString()
+  }
+  if(typeof obj === "boolean"){
+    return obj.toString()
+  }
+  if(Array.isArray(obj)){
+    for(var i = 0; i < obj.length; i++){
+      output.push(stringifyJSON(obj[i]))
+    }
+    return  '[' + output + ']'
+  }else if(typeof obj === "object"){
+    if (Object.keys(obj).length === 0){
+      return '{}'
+    }
+    for(var key in obj){
+      if(obj[key] === undefined){
+        return '{}'
+      }
+      output.push(stringifyJSON(key) + ':' + stringifyJSON(obj[key]))
+
+    }
+    return '{' + output + '}'
+  }
+
+
+
 return output.toString()
 
 
